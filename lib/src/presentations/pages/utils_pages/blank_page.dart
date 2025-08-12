@@ -11,7 +11,7 @@ class BlankPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-          onPressed: () => Navigator.of(context).pushNamed(AppRoutesName.homePage),
+          onPressed: () => Navigator.of(context).pushNamed(AppRoutesName.accueilPage),
           child: const Text("Retour à la page d'accueil"),
         ),
       ),

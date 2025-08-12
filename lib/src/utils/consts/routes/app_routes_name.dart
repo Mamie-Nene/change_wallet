@@ -25,7 +25,9 @@ class AppRoutesName{
   // ----------------------- Transaction Pages ------------------------
 
   static const String servicePaiement = '/servicePaiement';
+  static const String historiqueTransaction = '/historiqueTransaction';
   static const String detailTransaction = '/detailTransaction';
+  static const String notification = '/notification';
 
 
   // ----------------------- Utils Pages ------------------------

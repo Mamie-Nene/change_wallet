@@ -15,13 +15,14 @@ class SuccessPage extends StatefulWidget {
 
 class _SuccessPageState extends State<SuccessPage> {
   String resetCodeSuccess="Votre code d'accès a été modifié avec succès. Vous pouvez vous connecter à nouveau.";
-  String registerSuccess="Vous vous êtes inscrit avec succès dans notre  \n  application et vous pouvez commencer à l'utiliser.";
+  String registerSuccess="Vous pouvez commencer à utiliser l'application.";
   String activeCompteSuccess="Votre compte a été activé avec succès! Vous pouvez vous connecter.";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Colors.grey.shade300,
+      backgroundColor:Colors.white,
+     // backgroundColor:Colors.grey.shade300,
 
       body:  SingleChildScrollView(
         child: Center(
@@ -36,7 +37,7 @@ class _SuccessPageState extends State<SuccessPage> {
 
                 SizedBox(height: AppDimensions.heightSize100,),
 
-                const Text("Succès!!",
+                const Text("Inscription avec succès!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Roboto',

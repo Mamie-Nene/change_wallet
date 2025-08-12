@@ -1,6 +1,9 @@
 
 import 'package:change_wallet/src/presentations/pages/auth/registration/otp.dart';
 import 'package:change_wallet/src/presentations/pages/auth/registration/success_page.dart';
+import 'package:change_wallet/src/presentations/pages/transactions/historique_transactions_page.dart';
+import 'package:change_wallet/src/presentations/pages/transactions/notification.dart';
+import 'package:change_wallet/src/presentations/pages/transactions/service_paiement.dart';
 import 'package:flutter/material.dart';
 
 
@@ -53,7 +56,8 @@ class RouteGenerator {
 
         case AppRoutesName.signUpPage:
         return MaterialPageRoute( builder: (context) =>  const SignupPage());
-      case AppRoutesName.otpPage:
+
+        case AppRoutesName.otpPage:
         return MaterialPageRoute( builder: (context) =>  const OtpVerificationPage( phoneController:"000" , nameController: "000", ));
 
       case AppRoutesName.createPwdPage:
@@ -61,6 +65,16 @@ class RouteGenerator {
 
       case AppRoutesName.successPage:
       return MaterialPageRoute( builder: (context) =>  const SuccessPage());
+
+            // transactions
+      case AppRoutesName.servicePaiement :
+        return MaterialPageRoute( builder: (context) =>  const  ServicePaiementPage());
+
+      case AppRoutesName.historiqueTransaction :
+        return MaterialPageRoute( builder: (context) =>  const  HistoriqueTransactionPage());
+
+      case AppRoutesName.notification :
+        return MaterialPageRoute( builder: (context) =>  const  NotificationPage());
 
 
       case AppRoutesName.detailTransaction:

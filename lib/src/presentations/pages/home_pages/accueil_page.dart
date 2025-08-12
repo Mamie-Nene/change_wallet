@@ -37,7 +37,8 @@ class _AccueilPageState extends State<AccueilPage> {
     List<Widget> pageList = [
       const DashboardPage(),
       const HistoriqueTransactionPage(),
-      const CultureRecommandePage(),
+      const HistoriqueTransactionPage(),
+     // const CultureRecommandePage(),
       const ProfilePage(),
 
     ];

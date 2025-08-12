@@ -30,6 +30,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   final otp2Controller = TextEditingController();
   final otp3Controller = TextEditingController();
   final otp4Controller = TextEditingController();
+  final otp5Controller = TextEditingController();
+  final otp6Controller = TextEditingController();
   final otpController =TextEditingController();
 
   OTPgeneration otp= OTPgeneration();
@@ -68,6 +70,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     otp2Controller.dispose();
     otp3Controller.dispose();
     otp4Controller.dispose();
+    otp5Controller.dispose();
+    otp6Controller.dispose();
     otpController.dispose();
 
     super.dispose();
@@ -105,7 +109,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       ),
                     ),
                     child: SingleChildScrollView(
-
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children:[
@@ -125,77 +128,74 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                               color: Colors.grey,
                             ),
                           ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
+                          const SizedBox(height: 30),
 
-                              OTPFormField(controller: otp1Controller),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                              spacing: 12,
+                             // mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
 
-                              SizedBox(width: AppDimensions.sizeboxWidth17,),
+                                OTPFormField(controller: otp1Controller),
 
-                              OTPFormField(controller: otp2Controller),
+                                OTPFormField(controller: otp2Controller),
 
-                              SizedBox(width: AppDimensions.sizeboxWidth17,),
+                                OTPFormField(controller: otp3Controller),
 
-                              OTPFormField(controller: otp3Controller),
+                                OTPFormField(controller: otp4Controller),
+                                OTPFormField(controller: otp5Controller),
 
-                              SizedBox(width: AppDimensions.sizeboxWidth17,),
+                                Container(
+                                    width: AppDimensions.sizeboxWidth45,
+                                    height: AppDimensions.sizeboxHeight45,
+                                    margin:  EdgeInsets.fromLTRB(0, 1, 1, AppDimensions.sizeboxHeight20),
 
-                              Container(
-                                  width: AppDimensions.sizeboxWidth50,
-                                  height: AppDimensions.sizeboxHeight50,
-                                  margin:  EdgeInsets.fromLTRB(0, 1, 1, AppDimensions.sizeboxHeight20),
+                                    decoration: BoxDecoration(
+                                      color: otp6Controller.text.isCurrency?AppColors.lastOtpValueColor:Colors.grey.shade200,
+                                      borderRadius: BorderRadius.circular(7),
+                                    ),
 
-                                  decoration: BoxDecoration(
-                                    color: otp4Controller.text.isCurrency?AppColors.lastOtpValueColor:const Color(0xffffffff),
-                                    borderRadius: BorderRadius.circular(7),
-                                    boxShadow: const [BoxShadow(
-                                        color: Color(0x7f000000),
-                                        offset: Offset(0, 2),
-                                        blurRadius: 4,
-                                        spreadRadius: 0
+                                    child: TextFormField(
+                                        controller: otp4Controller,
+                                        keyboardType: TextInputType.number,
+                                        textAlign: TextAlign.center,
+                                        onChanged: (value){
+                                          setState(() {
+                                            otpController.text = otp1Controller.text+otp2Controller.text+otp3Controller.text+otp4Controller.text+otp5Controller.text+otp6Controller.text;
+                                            print(otpController.text);
+                                          });
+                                          if(value.length==1){
+                                            Navigator.of(context).pushNamed(AppRoutesName.createPwdPage);
+                                            // bon  OtpApi().otpVerification(context,otpController.text, widget.phoneController, widget.nameController ,widget.mailController, widget.codePpmController);
+                                            // FocusScope.of(context).nextFocus();
+                                          }
+                                        },
+                                        onTap: (){setState(() {focused=!focused;});},
+                                        onEditingComplete: (){setState(() {focused=!focused;});},
+                                        inputFormatters: <TextInputFormatter>[ LengthLimitingTextInputFormatter(1),
+                                          FilteringTextInputFormatter.digitsOnly],
+                                        decoration:  InputDecoration(
+                                          // fillColor: Color(0xff017368),
+                                          //fillColor: focused? Color(0xffffffff):Color(0xff017368),
+                                          //filled: true,
+                                          border: InputBorder.none,
+                                          labelStyle:  TextStyle(
+                                            fontFamily: 'Roboto',
+                                            color: focused? const Color(0xffffffff):const Color(0xff000000),
+                                            //color: Color(0xff000000),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            fontStyle: FontStyle.normal,
+                                          ),
+                                        )
                                     )
-                                    ],
-                                  ),
 
-                                  child: TextFormField(
-                                      controller: otp4Controller,
-                                      keyboardType: TextInputType.number,
-                                      textAlign: TextAlign.center,
-                                      onChanged: (value){
-                                        setState(() {
-                                          otpController.text = otp1Controller.text+otp2Controller.text+otp3Controller.text+otp4Controller.text;
-                                          print(otpController.text);
-                                        });
-                                        if(value.length==1){
-                                          Navigator.of(context).pushNamed(AppRoutesName.createPwdPage);
-                                        // bon  OtpApi().otpVerification(context,otpController.text, widget.phoneController, widget.nameController ,widget.mailController, widget.codePpmController);
-                                          // FocusScope.of(context).nextFocus();
-                                        }
-                                      },
-                                      onTap: (){setState(() {focused=!focused;});},
-                                      onEditingComplete: (){setState(() {focused=!focused;});},
-                                      inputFormatters: <TextInputFormatter>[ LengthLimitingTextInputFormatter(1),
-                                        FilteringTextInputFormatter.digitsOnly],
-                                      decoration:  InputDecoration(
-                                        // fillColor: Color(0xff017368),
-                                        //fillColor: focused? Color(0xffffffff):Color(0xff017368),
-                                        //filled: true,
-                                        border: InputBorder.none,
-                                        labelStyle:  TextStyle(
-                                          fontFamily: 'Roboto',
-                                          color: focused? const Color(0xffffffff):const Color(0xff000000),
-                                          //color: Color(0xff000000),
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.normal,
-                                        ),
-                                      )
-                                  )
+                                ),
 
-                              ),
-                            ]
-                        ),
+                              ]
+                                                    ),
+                          ),
 
                           const SizedBox(height: 24),
                           ElevatedButton(
@@ -241,7 +241,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
 
-                            const Text("Pas de code reçu?",
+                            const Text("Vous n'avez pas reçu de code?",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   color: Color(0xff000000),
@@ -253,7 +253,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                                 )
                             ),
 
-                            SizedBox(width: AppDimensions.sizeboxWidth30,),
+                            SizedBox(width: AppDimensions.sizeboxWidth10,),
 
                             InkWell(
                               onTap: () {
@@ -268,7 +268,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                               child: Text("Renvoyez le code",
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
-                                    color: AppColors.mainRedColor,
+                                    color: AppColors.mainAppColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                     fontStyle: FontStyle.normal,

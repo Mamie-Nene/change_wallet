@@ -1,7 +1,7 @@
-import 'package:change_wallet/src/utils/consts/routes/app_routes_name.dart';
 import 'package:flutter/material.dart';
 
 import '/src/utils/consts/app_specifications/allDirectories.dart';
+import '/src/utils/consts/routes/app_routes_name.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -21,11 +21,20 @@ class _SignupPageState extends State<SignupPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous page
-          },
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            style:ElevatedButton.styleFrom(
+                alignment:Alignment.center,
+                shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                backgroundColor: Colors.white,
+                iconSize:30,
+                iconColor:AppColors.mainAppColor
+            ) ,
+            onPressed:  () {Navigator.pop(context);},
+            child:  Icon(Icons.arrow_back_ios_new, ),
+
+          ),
         ),
       ),
       body: Column(
@@ -44,20 +53,25 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Inscrivez-vous en un clic',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                    Center(
+                      child: Text(
+                        'Inscrivez-vous en un clic',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
+                    Center(
+                      child: const Text(
+                        'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -156,9 +170,33 @@ class _SignupPageState extends State<SignupPage> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                //    CheckboxListTile(value: true, onChanged: (){}),
+                    CheckboxListTile(
+                      checkColor:Colors.white,
+                      value: true,
+                      onChanged: (bool? value) {  },
+                        title:     Text("En continuant vous, vous acceptez "),
+                      subtitle:Text("les conditions générales d'utilisations",style: TextStyle(color: AppColors.mainAppColor),) ,
 
-                    const Text(
+                    ),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(AppRoutesName.otpPage);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.mainAppColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        minimumSize: const Size(double.infinity, 50), // Full width button
+                      ),
+                      child: const Text(
+                        'S\'inscrire',
+                        style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    //MOTDEPASSE
+                    /*const Text(
                       'Mot de passe',
                       style: TextStyle(
                         fontSize: 16,
@@ -223,23 +261,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 24),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(AppRoutesName.otpPage);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.mainAppColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        minimumSize: const Size(double.infinity, 50), // Full width button
-                      ),
-                      child: const Text(
-                        'S\'inscrire',
-                        style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                    */
                     const SizedBox(height: 48),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

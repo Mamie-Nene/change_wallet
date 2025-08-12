@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../data/local/pdf_api.dart';
-import '../../../domain/local/Invoice_Info /Customer.dart';
-import '../../../domain/local/Invoice_Info /Invoice.dart';
-import '../../../domain/local/Invoice_Info /Supplier.dart';
+
+import '/src/data/local/pdf_api.dart';
+import '/src/domain/local/Invoice_Info /Customer.dart';
+import '/src/domain/local/Invoice_Info /Invoice.dart';
+import '/src/domain/local/Invoice_Info /Supplier.dart';
 import '../../widgets/pdf_invoice_widget.dart';
 import '/src/utils/consts/app_specifications/allDirectories.dart';
 
@@ -72,7 +73,9 @@ class _DetailTransactionState extends State<DetailTransaction> {
       body: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 15),
+                //padding: const EdgeInsets.fromLTRB(20, 10, 20, 15),
+                padding: const EdgeInsets.fromLTRB(24.0, 50.0, 24.0, 16.0),
+
                 child: Row(
                   children: [
                     IconButton(
@@ -109,9 +112,13 @@ class _DetailTransactionState extends State<DetailTransaction> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               _transactionHeader(typeTransaction: true),
+                             Divider(),
                               _informationCard(context),
                               _referenceCard(),
-                              _recuCard()
+                              Divider(),
+                              _issueCard(context),
+                              _annulationCard(context),
+                              _recuCard(context)
                             ],
                           )
                       )
@@ -123,25 +130,6 @@ class _DetailTransactionState extends State<DetailTransaction> {
     );
   }
 
-  Widget _appBar(){
-    return SizedBox(
-      height: 80,
-      child: Row(
-        children: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back)),
-
-          SizedBox(width:  AppDimensions.sizeboxWidth40,),
-
-          const Text('',
-            style: TextStyle(
-              fontSize: 20,
-              fontFamily: "Gill Sans",
-            ),
-          )
-        ],
-      ),
-    );
-  }
 
   Widget _transactionHeader({required bool typeTransaction}) {
     return  Row(
@@ -157,24 +145,24 @@ class _DetailTransactionState extends State<DetailTransaction> {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 22,
+                      fontSize: 18,
                       fontFamily: "Georgia"
                   ),
                 ),
 
                 SizedBox(height:  AppDimensions.sizeboxHeight10,),
 
-                const Text("Type : Facture",
+                const Text("De +221 771234567",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontFamily:  "serif"
                     )
                 ),
 
                 SizedBox(height:  AppDimensions.sizeboxHeight5,),
 
-                const Text("Paiement de facture Orbus Infinity sous le compte principal",
+                const Text("Vers +221 771234567",
                     style: TextStyle(
                       height: 1.3,
                       color: Colors.black,
@@ -185,105 +173,57 @@ class _DetailTransactionState extends State<DetailTransaction> {
                   padding: const EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
                     color: Colors.green.shade50,
-                    borderRadius: BorderRadius.circular(3),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text("Rechargement",style: TextStyle(color: Colors.green,fontSize: 10),),
+                  child: const Text("Transfert",style: TextStyle(color: Colors.green,fontSize: 10),),
                 )
               ],
             ),
           ),
-          Image.asset(AppImages.LOGO_GAINDE,scale: 8,)
-          // typeTransaction?  SvgPicture.asset("asset/images/credit.svg"):SvgPicture.asset("asset/images/bill.svg")
+          Container(
+            padding: const EdgeInsets.all(5.0),
+            decoration: BoxDecoration(
+              color: Colors.green.shade50,
+              borderRadius: BorderRadius.circular(3),
+            ),
+            child: Row(
+              children: [
+                Image.asset("asset/images/wave.webp",scale: 9,),
+                Icon(Icons.circle),
+                Image.asset("asset/images/Yas.png",scale: 9),
+              ],
+            ),
+          ),
         ],
       );
   }
 
   Widget _informationCard(BuildContext context){
-    List<String> nomChamps=["Date & Heure", "N° du Dossier", "Connaissement","Statut"];
-    List<String> values=["23/04/2024 16:27", "GUDE23032024RX","MEDUZL567890","Effectuée"];
+    List<String> nomChamps=["Date et Heure", "Statut","Montant", "Frais","Opérateur emetteur","Opérateur recepteur"];
+    List<String> values=["23/04/2024 16:27", "Effectuée","100000","10","Wave","Yas",];
 
 
     return Container(
+      height: MediaQuery.of(context).size.height/4,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(17),
       ),
-      child: Column(
-        children: [
-
-          SizedBox(height: MediaQuery.of(context).size.height/4,
-            child: ListView.separated(
+      child: ListView.separated(
                 itemCount: nomChamps.length,
                 itemBuilder: (BuildContext context, int index){
                   return  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(nomChamps[index],style: TextStyle(color:AppColors.mainAppColor,fontFamily: "serif",fontSize: 18)) ,//Colors.black38
+                      Text(nomChamps[index],style: TextStyle(color:Colors.black38,fontFamily: "serif",fontSize: 18)) ,//Colors.black38
                       Text(values[index],style: TextStyle(fontFamily: index==3?null:"Gill Sans",color: index==3?Colors.green.shade300:null,fontSize: 16))
                     ],
                   );
                 },
                 separatorBuilder: (BuildContext context, int index){return SizedBox(height:  AppDimensions.sizeboxHeight15,);}
             ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children:  [
-              Text("Montant",style: TextStyle(color:AppColors.mainAppColor ,fontFamily: "serif",fontSize: 18)) ,//Colors.black38
-              Text("100.000 F CFA",style: TextStyle(fontSize: 18))
-            ],
-          ),
-        ],
-      ),
     );
   }
-  /*
-  *   Widget _informationCard(){
-    return Container(
-      margin: EdgeInsets.fromLTRB( AppDimensions.sizeboxWidth15,  AppDimensions.sizeboxHeight25, AppDimensions.sizeboxWidth5,  AppDimensions.sizeboxHeight10),
-      padding: EdgeInsets.fromLTRB(AppDimensions.sizeboxWidth15,  AppDimensions.sizeboxHeight20, AppDimensions.sizeboxWidth15,  AppDimensions.sizeboxHeight20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(17),
-      ),
-      child: Column(
-
-        children: [
-
-          _rowForInformations(
-            nomChamps: "Date & heure",
-            value: "23/04/2024 16:27"
-          ),
-
-          _rowForInformations(
-              nomChamps:"N° du Dossier",
-              value:"GUDE23032024RX"
-          ),
-
-          _rowForInformations(
-              nomChamps:"Connaissement",
-              value:"MEDUZL567890"
-          ),
-
-          _rowForInformations(
-              nomChamps:"Statut",
-              value:"Effectuée"
-          ),
-
-          SizedBox(height:  AppDimensions.sizeboxHeight15,),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children:  const [
-              Text("Montant",style: TextStyle(color: Colors.black38,fontFamily: "serif",fontSize: 18)) ,
-              Text("100.000 F CFA",style: TextStyle(fontSize: 18))
-            ],
-          ),
-        ],
-      ),
-    );
-  }*/
 
   Widget _referenceCard(){
     return Container(
@@ -297,7 +237,7 @@ class _DetailTransactionState extends State<DetailTransaction> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [//grey
-              const Text("Référence",style: TextStyle(color: Colors.black38,fontFamily: "serif",fontSize: 19)) ,
+              const Text("Référence Opération",style: TextStyle(color: Colors.black38,fontFamily: "serif",fontSize: 19)) ,
 
               SizedBox(height:  AppDimensions.sizeboxHeight10,),
 
@@ -314,27 +254,62 @@ class _DetailTransactionState extends State<DetailTransaction> {
     );
   }
 
-  Widget _recuCard(){
+  Widget _annulationCard(t){
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.red.shade50,
         borderRadius: BorderRadius.circular(15),
       ),
-      child:Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children:[
-          const Text("Reçu",style: TextStyle(color: Colors.grey)) ,
+      child:
           Row(
             children: [
-              Icon(Icons.download_rounded,color: AppColors.mainAppColor) ,
+              Icon(Icons.delete,color: Colors.red) ,
               TextButton(
-                  onPressed:(){_downloadInvoice(context);},
-                  child: Text("Télécharger",
-                      style: TextStyle(color: AppColors.mainAppColor)
+                  onPressed:(){},
+                  child: Text("Annuler la transaction",
+                      style: TextStyle(color: Colors.red)
                   )
               ),
-            ],
-          ) ,
+        ],
+      ),
+    );
+  }
+  Widget _issueCard(BuildContext context){
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child:
+          Row(
+            children: [
+              Icon(Icons.warning,color: Colors.grey) ,
+              TextButton(
+                  onPressed:(){},
+                  child: Text("Signaler un problème",
+                      style: TextStyle(color: Colors.grey)
+                  )
+              ),
+        ],
+      ),
+    );
+  }
+  Widget _recuCard(BuildContext context){
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.green.shade50,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child:
+          Row(
+            children: [
+              Icon(Icons.download_rounded,color: Colors.green) ,
+              TextButton(
+                  onPressed:(){_downloadInvoice(context);},
+                  child: Text("Téléchargement du reçu",
+                      style: TextStyle(color: Colors.green)
+                  )
+              ),
         ],
       ),
     );

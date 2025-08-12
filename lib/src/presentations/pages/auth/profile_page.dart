@@ -21,7 +21,10 @@ class _ProfilePageState extends State<ProfilePage> {
     List<String> titles= ['Notifications','Services de paiement','Historiques des transactions','Se déconnecter',];
     List<IconData> icons= [Icons.notifications_none,Icons.history,Icons.category_outlined,Icons.logout];
     List<MaterialColor> colors= [Colors.blue,Colors.blue,Colors.blue,Colors.red];
-    List<VoidCallback> actions= [(){},(){},(){Navigator.of(context).pushNamed(AppRoutesName.servicePaiement);},
+    List<VoidCallback> actions= [
+      (){Navigator.of(context).pushNamed(AppRoutesName.notification);},
+          (){Navigator.of(context).pushNamed(AppRoutesName.servicePaiement);},
+          (){Navigator.of(context).pushNamed(AppRoutesName.historiqueTransaction);},
           () {
             showModalBottomSheet(
               context: context,

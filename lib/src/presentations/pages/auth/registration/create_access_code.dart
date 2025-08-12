@@ -97,8 +97,9 @@ class _AccessCodePageState extends State<AccessCodePage> {
                             fontSize: 14,
                             color: Colors.grey,
                           ),
+                          textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 25),
                          Form(
                             key: _accessCodeKey,
                             child: Column(
@@ -116,13 +117,12 @@ class _AccessCodePageState extends State<AccessCodePage> {
                                 ),
 
                                 _passwordField(
-                                        controller:codeController,
-                                        setVisibility: () {
-                                          setState(() {
-                                            _visibleKeyboard1 = true;
-                                          });
-                                        } ),
-
+                                    controller:codeController,
+                                    setVisibility: () {
+                                      setState(() {
+                                        _visibleKeyboard1 = true;
+                                      });
+                                    } ),
 
                                 Visibility(
                                     visible:_visibleKeyboard1 ,
@@ -142,36 +142,38 @@ class _AccessCodePageState extends State<AccessCodePage> {
 
                                 Visibility(
                                   visible: _visibleConfirmCode,
-                                  child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children:[
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 35),
+                                    child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children:[
 
-                                          const Text("Confirmer votre mot de passe",
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                color: Color(0xff000000),
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                fontStyle: FontStyle.normal,
-                                              )
-                                          ),
-                                          SizedBox(height: AppDimensions.sizeboxHeight45,),
-
-                                          SizedBox(
-                                            height: 70,
-                                            child: Center(
-                                                child: _passwordField(
-                                                    controller: codeConfirmController,
-                                                    setVisibility:() {
-                                                      setState(() {
-                                                        _visibleKeyboard2 = true;
-                                                      });
-                                                    }
+                                            const Text("Confirmer votre mot de passe",
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  color: Color(0xff000000),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal,
                                                 )
                                             ),
-                                          ),
-                                        ]
-                                    ),
+
+                                            SizedBox(
+                                              height: 70,
+                                              child: Center(
+                                                  child: _passwordField(
+                                                      controller: codeConfirmController,
+                                                      setVisibility:() {
+                                                        setState(() {
+                                                          _visibleKeyboard2 = true;
+                                                        });
+                                                      }
+                                                  )
+                                              ),
+                                            ),
+                                          ]
+                                      ),
+                                  ),
 
                                 ),
 
@@ -225,15 +227,15 @@ class _AccessCodePageState extends State<AccessCodePage> {
       // Disable the default soft keybaord
       keyboardType: TextInputType.none,
       obscureText: _passwordVisible ,
-      maxLength: 4,
+      maxLength: 6,
       onTap: setVisibility,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (value == null || value.isEmpty ) {
           return 'Veuillez remplir ce champs';
         }
-        else if (value.length<4 ) {
-          return 'Veuillez spécifier un code de 4 chiffres';
+        else if (value.length<6 ) {
+          return 'Veuillez spécifier un code de 6 chiffres';
         }
         return null;
       },
@@ -243,7 +245,7 @@ class _AccessCodePageState extends State<AccessCodePage> {
             _passwordVisible
                 ? Icons.visibility
                 : Icons.visibility_off,
-            color: Theme.of(context).primaryColorDark,
+            color: AppColors.mainAppColor,
           ),
           onPressed: () {
             // Update the state i.e. toogle the state of passwordVisible variable

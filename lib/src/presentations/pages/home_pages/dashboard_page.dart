@@ -1,3 +1,5 @@
+import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../../utils/consts/routes/app_routes_name.dart';
 import '/src/utils/consts/app_specifications/allDirectories.dart';
 
@@ -54,7 +56,9 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     List<String>titles = ['Transfert','Achats','Banques','Voir plus'];
-    List<IconData> icons = [Icons.transfer_within_a_station, Icons.shopping_cart, Icons.food_bank, Icons.school_outlined];
+    List<String> icons = ["transfert","shopping_card","bank","dots"];
+    List<MaterialColor> colors = [Colors.red, Colors.lightGreen, Colors.yellow, Colors.blue];
+    List<MaterialColor> backgroundColors =[Colors.red, Colors.lightGreen, Colors.yellow, Colors.blue];
     List<VoidCallback> actions = [
       (){bottomSheetForAnalyserSol(context);},
           (){},
@@ -67,7 +71,6 @@ class _DashboardPageState extends State<DashboardPage> {
       body: SingleChildScrollView(
         child: Container(
           decoration: const BoxDecoration(
-
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30.0),
               bottomRight: Radius.circular(30.0),
@@ -76,8 +79,6 @@ class _DashboardPageState extends State<DashboardPage> {
           child: Column(
             children: [
               _profilHeader(),
-
-              const SizedBox(height: 15),
 
               // Content Grid
               Container(
@@ -93,19 +94,29 @@ class _DashboardPageState extends State<DashboardPage> {
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-
                       children: [
-                        Container(
+
+                        SizedBox(
                           height:MediaQuery.of(context).size.height/8 ,
                           width:MediaQuery.of(context).size.width ,
 
-                          child: ListView.builder(
+                          child: ListView.separated(
                              scrollDirection : Axis.horizontal,
                             shrinkWrap: true,
                             itemCount: titles.length,
                             physics:BouncingScrollPhysics(),
                             itemBuilder: ( BuildContext context, int index) {
-                              return  _buildMenuCard(context, titles[index], icons[index],actions[index]);
+                              return  _buildMenuCard(
+                                context,
+                                titles[index],
+                                icons[index],
+                                actions[index],
+                                colors[index],
+                                backgroundColors[index].shade50,
+                              );
+                            },
+                            separatorBuilder: ( BuildContext context, int index) {
+                              return  SizedBox(width: 20,);
                             },
                           ),
                         ),
@@ -115,23 +126,22 @@ class _DashboardPageState extends State<DashboardPage> {
                           children: [
                             Container(
                                 padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.transfer_within_a_station, size: 30, color: Colors.redAccent)
+                                child: SvgPicture.asset("asset/images/transfert.svg", height: 30, color: Colors.redAccent)
                             ),
                             Text("De")
                           ],
                         ),
                         Text("Opérateur"),
-                        const SizedBox(height: 15),
                         Container(
                           height: 60,
                           padding: EdgeInsets.all(12.0),
                           decoration: BoxDecoration(
                               color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.circular(13)
+                              borderRadius: BorderRadius.circular(8)
                           ),
                           child: Row(
                             children: [
-                              Icon(Icons.shopping_cart, color:Colors.blue),
+                              Image.asset("asset/images/wave.webp"),
                               SizedBox(width: 10,),
                               Text("Wave money",style: TextStyle(fontSize: 16),),
                             ],
@@ -140,7 +150,6 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                         const SizedBox(height: 15),
                         Text("Numéro Téléphone"),
-                        const SizedBox(height: 15),
                         Row(
                           children: [
                             Container(
@@ -173,11 +182,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 15),
+                        Text("Montant"),
+                        Container(
+                          height: 60,
+                          padding: EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(8)
+                          ),
+                          child: Text("Saisir",style: TextStyle(fontSize: 16),),
+                        ),
+                        const SizedBox(height: 15),
                         Row(
                           children: [
                             Container(
                                 padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.transfer_within_a_station, size: 30, color: Colors.green)
+                                child: SvgPicture.asset("asset/images/vers.svg", height: 30, color: Colors.green)
                             ),
                             Text("Vers")
                           ],
@@ -190,13 +211,13 @@ class _DashboardPageState extends State<DashboardPage> {
                           padding: EdgeInsets.all(12.0),
                           decoration: BoxDecoration(
                               color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.circular(13)
+                              borderRadius: BorderRadius.circular(8)
                           ),
                           child: Row(
                             children: [
-                              Icon(Icons.shopping_cart, color:Colors.blue),
+                              Image.asset("asset/images/Yas.png"),
                               SizedBox(width: 10,),
-                              Text("Wave money",style: TextStyle(fontSize: 16),),
+                              Text("Yas money",style: TextStyle(fontSize: 16),),
                             ],
 
                           ),
@@ -246,7 +267,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             minimumSize: const Size(double.infinity, 50), // Full width button
                           ),
                           child: const Text(
-                            'Connexion',
+                            'Transféré',
                             style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -260,105 +281,7 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
-  Widget buildWeatherIcon() {
-    return SizedBox(
-      width: 100,
-      height: 80,
-      child: Stack(
-        children: [
-          // Sun - positioned to be partially cut off at the top-right
-          Positioned(
-            top: 1,
-            right: 40,
-            child: Container(
-              width: 30,
-              height: 30,
-              decoration: const ShapeDecoration(
-                color: Color(0xFFFFC107),
-                shape: OvalBorder(),
-              ),
-            ),
-          ),
 
-
-          // Main cloud
-          Positioned(
-            top: 11,
-            right: 2,
-            child: Container(
-              width: 60,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade400,
-               // color: Colors.white.withOpacity(0.95),
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-          ),
-
-          // Cloud bumps for realistic cloud shape
-          Positioned(
-            top: 2,
-            right: 15,
-            child: Container(
-              width: 33,
-              height: 33,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade400,
-              //  color: Colors.white.withOpacity(0.95),
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 10,
-            right: 8,
-            child: Container(
-              width: 30,
-              height: 30,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade400,
-                //color: Colors.white.withOpacity(0.95),
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-
-          // Rain drops - positioned below the cloud
-          Positioned(
-            top: 50,
-            right: 26,
-            child: _buildRainDrop(), //2ieme
-          ),
-          Positioned(
-            top: 46,
-            right: 18,
-            child: _buildRainDrop(), //3iem
-          ),
-          Positioned(
-            top: 50,
-            right: 12,
-            child: _buildRainDrop(),//4iem
-          ),
-          Positioned(
-            top: 46,
-            right: 35,
-            child: _buildRainDrop(), //1er
-          ),
-        ],
-      ),
-    );
-  }
-  Widget _buildRainDrop() {
-    return Container(
-      width: 4,
-      height: 15,
-      decoration: BoxDecoration(
-        color: const Color(0xFF2196F3),
-        borderRadius: BorderRadius.circular(2),
-      ),
-    );
-  }
   Widget _profilHeader(){
     return  Padding(
         padding: const EdgeInsets.fromLTRB(24.0, 50.0, 24.0, 16.0),
@@ -398,50 +321,26 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       );
   }
-  Widget _buildDashboardCard(BuildContext context, String title, IconData icon,VoidCallback actions ) {
-    return Card(
-      elevation: 0,
-      color: Colors.grey[100],
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: InkWell(
-        onTap: actions,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.all(8.0),
-              decoration: ShapeDecoration(
-                  shape: OvalBorder(),
-                  color:Colors.white,
-              ),
-                child: Icon(icon, size: 30, color: Colors.green)),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-  Widget _buildMenuCard(BuildContext context, String title, IconData icon,VoidCallback actions ) {
+  Widget _buildMenuCard(
+      BuildContext context,
+      String title,
+      String icon,
+      VoidCallback actions,
+      Color color,
+      Color backgroundColor) {
     return InkWell(
       onTap: actions,
       child:Column(
         children: [
           Card(
             elevation: 0,
-            color: Colors.grey[100],
+            color: backgroundColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             child: Container(
                 padding: EdgeInsets.all(8.0),
-                child: Icon(icon, size: 30, color: Colors.blue)
+                child: SvgPicture.asset("asset/images/$icon.svg", height: 30, color: color)
             ),
           ),
           const SizedBox(height: 8),

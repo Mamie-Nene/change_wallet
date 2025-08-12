@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 import '/src/utils/consts/app_specifications/allDirectories.dart';
@@ -30,34 +31,14 @@ class _TransactionAffichageState extends State<TransactionAffichage> {
 
     return InkWell(
       onTap: widget.action,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text( widget.date,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                color: Colors.grey.shade400,
-                //color: Color(0xff313131),
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.normal,
-              )
-            /*  style: const TextStyle(
-                fontFamily: "Gill Sans",
-                color: Colors.black45,
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.normal,
-              )*/
-          ),
-          SizedBox(height:  AppDimensions.sizeboxHeight5,),
-          Row(
+      child:
+         Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                Container(
                   width: 45,
-                  //  color: Colors.white,
-                  child: Image.asset(AppImages.LOGO_GAINDE),
+                    color: Colors.grey.shade200,
+                  child: SvgPicture.asset("asset/images/money.svg",color: AppColors.mainAppColor,),
                 ),
                 // const SizedBox(width: 7,),
                 Flexible(
@@ -65,8 +46,7 @@ class _TransactionAffichageState extends State<TransactionAffichage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:  [
 
-                        const Text("Paiement de facture",
-
+                        const Text("De +221 771234567 ",
                             style: TextStyle(
                               //height: 1.4,
                               fontFamily: 'Roboto',
@@ -76,30 +56,33 @@ class _TransactionAffichageState extends State<TransactionAffichage> {
                               fontStyle: FontStyle.normal,
                             )
                         ),
-                        const Text("Orbus Infinity",
-
-                            style: TextStyle(
-                              //height: 1.4,
-                              fontFamily: 'Roboto',
-                              color: Color(0xff313131),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FontStyle.normal,
-                            )
-                        ),
-
-
                         const SizedBox(height: 7,),
+                        Row(
+                          children: [
+                            Text( widget.date,
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.grey.shade400,
+                                  //color: Color(0xff313131),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.normal,
+                                )
+                            ),
+                            SizedBox(height:  AppDimensions.sizeboxWidth5,),
 
-                        Text( widget.hour, //"01 nov 2019, 15h 45
-                            style: const TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Color(0xff313131),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
+                            Text( widget.hour, //"01 nov 2019, 15h 45
+                                style: const TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff313131),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.normal,
+                                )
                             )
-                        )
+                          ],
+                        ),
+
                       ]
                   ),
                 ),
@@ -115,7 +98,7 @@ class _TransactionAffichageState extends State<TransactionAffichage> {
                               color: AppColors.mainAppColor,
                               // color: AppColors.mainRedColor,
                               //color: faded-red,
-                              fontSize: 16,
+                              fontSize: 14,
                               fontWeight: FontWeight.w700,
                               fontStyle: FontStyle.normal,
                             )
@@ -126,15 +109,19 @@ class _TransactionAffichageState extends State<TransactionAffichage> {
                             color: Colors.green.shade50,
                             borderRadius: BorderRadius.circular(3),
                           ),
-                          child: const Text("Rechargement",style: TextStyle(color: Colors.green,fontSize: 10),),
+                          child: Row(
+                            children: [
+                              Image.asset("asset/images/wave.webp",scale: 9),
+                              Icon(Icons.circle),
+                              Image.asset("asset/images/Yas.png",scale: 9),
+                            ],
+                          ),
                         ),
                       ],
                     )
                 ),
               ]
           ),
-        ],
-      ),
     );
   }
 }

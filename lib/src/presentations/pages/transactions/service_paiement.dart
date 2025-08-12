@@ -1,17 +1,19 @@
+import 'package:flutter_svg/svg.dart';
+
 import '../../widgets/transactionAffichage.dart';
 import '/src/utils/consts/routes/app_routes_name.dart';
 import 'package:flutter/material.dart';
 
 import '/src/utils/consts/app_specifications/allDirectories.dart';
 
-class HistoriqueTransactionPage extends StatefulWidget {
-  const HistoriqueTransactionPage({super.key});
+class ServicePaiementPage extends StatefulWidget {
+  const ServicePaiementPage({super.key});
 
   @override
-  State<HistoriqueTransactionPage> createState() => _HistoriqueTransactionPageState();
+  State<ServicePaiementPage> createState() => _ServicePaiementPageState();
 }
 
-class _HistoriqueTransactionPageState extends State<HistoriqueTransactionPage> {
+class _ServicePaiementPageState extends State<ServicePaiementPage> {
   final searchController = TextEditingController();
 
 
@@ -37,15 +39,20 @@ class _HistoriqueTransactionPageState extends State<HistoriqueTransactionPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<String>titles = ['Transfert','Achats','Banques','Assurances','Investissements'];
+    List<String> icons = ["transfert","shopping_card","bank","dots","assurances","invest"];
+    List<MaterialColor> colors = [Colors.red, Colors.lightGreen, Colors.yellow, Colors.blue, Colors.brown];
+    List<MaterialColor> backgroundColors =[Colors.red, Colors.lightGreen, Colors.yellow, Colors.blue,Colors.brown];
+
     return Scaffold(
       backgroundColor: AppColors.mainAppColor,
 
       body: Column(
         children: [
           Padding(
-           // padding: const EdgeInsets.fromLTRB(20, 10, 20, 15),
             padding: const EdgeInsets.fromLTRB(24.0, 50.0, 24.0, 16.0),
 
+            //padding: const EdgeInsets.fromLTRB(20, 10, 20, 15),
             child: Row(
               children: [
                 IconButton(
@@ -57,7 +64,7 @@ class _HistoriqueTransactionPageState extends State<HistoriqueTransactionPage> {
                 ),
                 const SizedBox(width: 10),
                 const Text(
-                  'Historique Transactions',
+                  'Services de paiement',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -95,7 +102,7 @@ class _HistoriqueTransactionPageState extends State<HistoriqueTransactionPage> {
                           cursorWidth: 1,
                           controller: searchController,
                           decoration:  InputDecoration(
-                            hintText: 'Rechercher une transaction',
+                            hintText: 'Rechercher ',
                             hintStyle: const TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: 13,
@@ -120,7 +127,29 @@ class _HistoriqueTransactionPageState extends State<HistoriqueTransactionPage> {
 
                     const SizedBox(height: 16),
 
-                    afficheTransaction()
+                    SizedBox(
+                      height:MediaQuery.of(context).size.height/8 ,
+                      width:MediaQuery.of(context).size.width ,
+
+                      child: GridView.builder(
+                        scrollDirection : Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: titles.length,
+                        physics:BouncingScrollPhysics(),
+                        itemBuilder: ( BuildContext context, int index) {
+                          return  _buildMenuCard(
+                            context,
+                            titles[index],
+                            icons[index],
+                              (){ Navigator.of(context).pushNamed(AppRoutesName.accueilPage);},
+                            colors[index],
+                            backgroundColors[index].shade50,
+                          );
+                        },
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 10)
+                      ),
+                    ),
+
                   ],
                 ),
               ),
@@ -130,55 +159,36 @@ class _HistoriqueTransactionPageState extends State<HistoriqueTransactionPage> {
       ),
     );
   }
-  Widget afficheTransaction(){
-      return
-        Container(
-          margin: EdgeInsets.only(bottom: AppDimensions.sizeboxHeight20),
-
-          padding: EdgeInsets.fromLTRB(AppDimensions.sizeboxWidth20, AppDimensions.sizeboxHeight10, AppDimensions.sizeboxWidth20, AppDimensions.sizeboxHeight10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Align(
-                  alignment: Alignment.centerLeft,
-                  child:  Text("Mars 2025",
-                      style:TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Color(0xff000000),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                      )
-                  )
-              ),
-              SizedBox(height:  AppDimensions.sizeboxHeight10,),
-
-              SingleChildScrollView(
-                child: ListView.separated(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                //reverse: true,
-                itemCount:5,
-
-                itemBuilder: (context, index){
-
-                  return TransactionAffichage(
-                    (){Navigator.of(context).pushNamed(AppRoutesName.detailTransaction);},
-                      montant: 10000,
-                        service:"User",
-                        hour: "10:45",
-                        date: "20 / 10 / 24"
-                    );
-                  },
-                separatorBuilder: (BuildContext context, int index) { return Divider(thickness: 1);  },
-              //   separatorBuilder: (BuildContext context, int index) { return SizedBox(height: AppDimensions.sizeboxHeight15,);  },
-               ),
-              ),
-            ],
-          )
-        );
-
-
+  Widget _buildMenuCard(
+      BuildContext context,
+      String title,
+      String icon,
+      VoidCallback actions,
+      Color color,
+      Color backgroundColor) {
+    return InkWell(
+      onTap: actions,
+      child:Column(
+        children: [
+          Card(
+            elevation: 0,
+            color: backgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Container(
+                padding: EdgeInsets.all(8.0),
+                child: SvgPicture.asset("asset/images/$icon.svg", height: 30, color: color)
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+        ],
+      ),
+    );
   }
 }

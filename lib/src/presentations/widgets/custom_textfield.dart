@@ -174,20 +174,12 @@ class OTPFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-        width: AppDimensions.sizeboxWidth50,
-        height: AppDimensions.sizeboxHeight50,
+        width: AppDimensions.sizeboxWidth45,
+        height: AppDimensions.sizeboxHeight45,
         margin: EdgeInsets.fromLTRB(0, 1, 1,AppDimensions.sizeboxHeight20),
         decoration: BoxDecoration(
-          color: isLastField?controller.text.isCurrency?AppColors.lastOtpValueColor:Colors.white:Colors.white,
+          color: isLastField?controller.text.isCurrency?AppColors.lastOtpValueColor:Colors.grey.shade200:Colors.grey.shade200,
           borderRadius: BorderRadius.circular(7),
-          boxShadow: const [
-            BoxShadow(
-                color: Color(0x7f000000),
-                offset: Offset(0, 2),
-                blurRadius: 4,
-                spreadRadius: 0
-            )
-          ],
         ),
         child: TextFormField(
           controller: controller,
@@ -203,14 +195,14 @@ class OTPFormField extends StatelessWidget {
             FilteringTextInputFormatter.digitsOnly
           ],
             decoration: const InputDecoration(
-          labelStyle:  TextStyle(
-            fontFamily: 'Roboto',
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
-            fontStyle: FontStyle.normal,
-          ),
-          border: InputBorder.none,
+              labelStyle:  TextStyle(
+                fontFamily: 'Roboto',
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.normal,
+              ),
+              border: InputBorder.none,
             )
         )
     );

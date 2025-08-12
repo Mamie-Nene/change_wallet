@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import '/src/utils/consts/app_specifications/allDirectories.dart';
 
-class ServicePaiementPage extends StatefulWidget {
-  const ServicePaiementPage({super.key});
+class NotificationPage extends StatefulWidget {
+  const NotificationPage({super.key});
 
   @override
-  State<ServicePaiementPage> createState() => _ServicePaiementPageState();
+  State<NotificationPage> createState() => _NotificationPageState();
 }
 
-class _ServicePaiementPageState extends State<ServicePaiementPage> {
+class _NotificationPageState extends State<NotificationPage> {
   final searchController = TextEditingController();
 
 
@@ -46,7 +46,9 @@ class _ServicePaiementPageState extends State<ServicePaiementPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 15),
+            //padding: const EdgeInsets.fromLTRB(20, 10, 20, 15),
+            padding: const EdgeInsets.fromLTRB(24.0, 50.0, 24.0, 16.0),
+
             child: Row(
               children: [
                 IconButton(
@@ -58,7 +60,7 @@ class _ServicePaiementPageState extends State<ServicePaiementPage> {
                 ),
                 const SizedBox(width: 10),
                 const Text(
-                  'Services de paiement',
+                  'Notifications',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -96,7 +98,7 @@ class _ServicePaiementPageState extends State<ServicePaiementPage> {
                           cursorWidth: 1,
                           controller: searchController,
                           decoration:  InputDecoration(
-                            hintText: 'Rechercher une transaction',
+                            hintText: 'Rechercher',
                             hintStyle: const TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: 13,
@@ -120,52 +122,12 @@ class _ServicePaiementPageState extends State<ServicePaiementPage> {
                     ),
 
                     const SizedBox(height: 16),
-                    Container(
-                      height:MediaQuery.of(context).size.height/8 ,
-                      width:MediaQuery.of(context).size.width ,
+                    Text('Aucune notification trouvée')
 
-                      child: ListView.builder(
-                        scrollDirection : Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: titles.length,
-                        physics:BouncingScrollPhysics(),
-                        itemBuilder: ( BuildContext context, int index) {
-                          return  _buildMenuCard(context, titles[index], icons[index],(){});
-                        },
-                      ),
-                    ),
-
-                    Divider(),
                   ],
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-  Widget _buildMenuCard(BuildContext context, String title, IconData icon,VoidCallback actions ) {
-    return InkWell(
-      onTap: actions,
-      child:Column(
-        children: [
-          Card(
-            elevation: 0,
-            color: Colors.grey[100],
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Container(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(icon, size: 30, color: Colors.blue)
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16),
           ),
         ],
       ),

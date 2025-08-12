@@ -1,8 +1,8 @@
-import 'package:change_wallet/src/config/router/route_generator.dart';
-
-import 'package:change_wallet/src/utils/consts/routes/app_routes_name.dart';
-import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:flutter/material.dart';
+
+import '/src/config/router/route_generator.dart';
+import '/src/utils/consts/routes/app_routes_name.dart';
 
 class MyHttpOverrides extends HttpOverrides{
   @override
