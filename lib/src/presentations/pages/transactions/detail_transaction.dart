@@ -180,19 +180,12 @@ class _DetailTransactionState extends State<DetailTransaction> {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(5.0),
-            decoration: BoxDecoration(
-              color: Colors.green.shade50,
-              borderRadius: BorderRadius.circular(3),
-            ),
-            child: Row(
+           Row(
               children: [
-                Image.asset("asset/images/wave.webp",scale: 9,),
-                Icon(Icons.circle),
-                Image.asset("asset/images/Yas.png",scale: 9),
+                Image.asset("asset/images/wave.webp",scale: 8,),
+                Icon(Icons.circle,color: Colors.grey.shade200,),
+                Image.asset("asset/images/Yas.png",height: 20,),
               ],
-            ),
           ),
         ],
       );

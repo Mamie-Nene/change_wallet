@@ -135,7 +135,7 @@ class _HistoriqueTransactionPageState extends State<HistoriqueTransactionPage> {
         Container(
           margin: EdgeInsets.only(bottom: AppDimensions.sizeboxHeight20),
 
-          padding: EdgeInsets.fromLTRB(AppDimensions.sizeboxWidth20, AppDimensions.sizeboxHeight10, AppDimensions.sizeboxWidth20, AppDimensions.sizeboxHeight10),
+        //  padding: EdgeInsets.fromLTRB(AppDimensions.sizeboxWidth20, AppDimensions.sizeboxHeight10, AppDimensions.sizeboxWidth20, AppDimensions.sizeboxHeight10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

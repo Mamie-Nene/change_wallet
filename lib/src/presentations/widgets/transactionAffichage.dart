@@ -103,19 +103,12 @@ class _TransactionAffichageState extends State<TransactionAffichage> {
                               fontStyle: FontStyle.normal,
                             )
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(5.0),
-                          decoration: BoxDecoration(
-                            color: Colors.green.shade50,
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Row(
+                         Row(
                             children: [
                               Image.asset("asset/images/wave.webp",scale: 9),
-                              Icon(Icons.circle),
-                              Image.asset("asset/images/Yas.png",scale: 9),
+                              Icon(Icons.circle,size: 10,color: Colors.grey.shade100,),
+                              Image.asset("asset/images/Yas.png",height: 20,),
                             ],
-                          ),
                         ),
                       ],
                     )

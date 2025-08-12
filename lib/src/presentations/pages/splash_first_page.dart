@@ -21,14 +21,14 @@ class _SplashPageState extends State<SplashPage> {
 
     return Scaffold(
         body: SplashView(
-              bottomLoading: true,
-              backgroundColor: AppColors.mainAppColor,
-              done: Done(const AboutAppPage()),
-              loadingIndicator: LinearProgressIndicator(color: AppColors.mainAppColor,),
-              logo: AspectRatio(
-                aspectRatio: 9 / 16,
-                child: const AnimatedDotBackground(),
-              ),
+          bottomLoading: true,
+          backgroundColor: AppColors.mainAppColor,
+          done: Done(const AboutAppPage()),
+          loadingIndicator: LinearProgressIndicator(color: AppColors.mainAppColor,),
+          logo: AspectRatio(
+            aspectRatio: 9 / 16,
+            child: const AnimatedDotBackground(),
+          ),
 // 🔵 animated dots
         )
     );

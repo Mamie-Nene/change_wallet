@@ -131,7 +131,7 @@ class _ServicePaiementPageState extends State<ServicePaiementPage> {
                       height:MediaQuery.of(context).size.height/8 ,
                       width:MediaQuery.of(context).size.width ,
 
-                      child: GridView.builder(
+                      child: ListView.separated(
                         scrollDirection : Axis.horizontal,
                         shrinkWrap: true,
                         itemCount: titles.length,
@@ -145,8 +145,8 @@ class _ServicePaiementPageState extends State<ServicePaiementPage> {
                             colors[index],
                             backgroundColors[index].shade50,
                           );
-                        },
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 10)
+                        }, separatorBuilder: (BuildContext context, int index) { return SizedBox(width: 20,);  },
+                     //   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 10)
                       ),
                     ),
 
